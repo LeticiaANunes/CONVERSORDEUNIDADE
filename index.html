@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Conversor de Unidades</title>
+</head>
+<body>
+    <h1>Conversor de Unidades</h1>
+    
+    <label for="categoria">Categoria:</label>
+    <select id="categoria" onchange="atualizarUnidades()">
+        <option value="comprimento">Comprimento</option>
+        <option value="peso">Peso</option>
+        <option value="temperatura">Temperatura</option>
+    </select>
+    
+    <br>
+    
+    <label for="valor">Valor:</label>
+    <input type="text" id="valor">
+    
+    <br>
+    
+    <label for="unidadeOrigem">Unidade de Origem:</label>
+    <select id="unidadeOrigem"></select>
+    
+    <br>
+    
+    <label for="unidadeDestino">Unidade de Destino:</label>
+    <select id="unidadeDestino"></select>
+    
+    <br>
+    
+    <button onclick="converterUnidades()">Converter</button>
+    
+    <br>
+    
+    <p id="resultado"></p>
+    
+    <script>
+        // FUNÇÃO PARA CONVERTER AS UNIDADES
+        function converterUnidades() {
+            var valor = parseFloat(document.getElementById("valor").value);
+            var categoria = document.getElementById("categoria").value;
+            var unidadeOrigem = document.getElementById("unidadeOrigem").value;
+            var unidadeDestino = document.getElementById("unidadeDestino").value;
+            var resultado;
+            
+            // Converter de acordo com a categoria selecionada
+            if (categoria === "comprimento") {
+                resultado = converterComprimento(valor, unidadeOrigem, unidadeDestino);
+            } else if (categoria === "peso") {
+                resultado = converterPeso(valor, unidadeOrigem, unidadeDestino);
+            } else if (categoria === "temperatura") {
+                resultado = converterTemperatura(valor, unidadeOrigem, unidadeDestino);
+            }
+            
+            // Exibir o resultado
+            document.getElementById("resultado").textContent = resultado;
+        }
+        
+        // FUNÇÕES PARA CONVERSÃO DE UNIDADES
+        function converterComprimento(valor, unidadeOrigem, unidadeDestino) {
+            if (unidadeOrigem === "metros") {
+                if (unidadeDestino === "centimetros") {
+                    return valor * 100 + " cm";
+                } else if (unidadeDestino === "polegadas") {
+                    return valor * 39.37 + " polegadas";
+                }
+            } else if (unidadeOrigem === "centimetros") {
+                if (unidadeDestino === "metros") {
+                    return valor / 100 + " m";
+                } else if (unidadeDestino === "polegadas") {
+                    return valor / 2.54 + " polegadas";
+                }
+            } else if (unidadeOrigem === "polegadas") {
+                if (unidadeDestino === "metros") {
+                    return valor * 0.0254 + " m";
+                } else if (unidadeDestino === "centimetros") {
+                    return valor * 2.54 + " cm";
+                }
+            }
+            
+            return "Unidades de origem e destino inválidas";
+        }
+        
+        function converterPeso(valor, unidadeOrigem, unidadeDestino) {
+            if (unidadeOrigem === "quilogramas") {
+                if (unidadeDestino === "gramas") {
+                    return valor * 1000 + " g";
+                } else if (unidadeDestino === "libras") {
+                    return valor * 2.20462 + " lb";
+                }
+            } else if (unidadeOrigem === "gramas") {
+                if (unidadeDestino === "quilogramas") {
+                    return valor / 1000 + " kg";
+                } else if (unidadeDestino === "libras") {
+                    return valor * 0.00220462 + " lb";
+                }
+            } else if (unidadeOrigem === "libras") {
+                if (unidadeDestino === "quilogramas") {
+                    return valor * 0.453592 + " kg";
+                } else if (unidadeDestino === "gramas") {
+                    return valor * 453.592 + " g";
+                }
+            }
+            
+            return "Unidades de origem e destino inválidas";
+        }
+        
+        function converterTemperatura(valor, unidadeOrigem, unidadeDestino) {
+            if (unidadeOrigem === "Celsius") {
+                if (unidadeDestino === "Fahrenheit") {
+                    return (valor * 9/5) + 32 + " °F";
+                } else if (unidadeDestino === "Kelvin") {
+                    return valor + 273.15 + " K";
+                }
+            } else if (unidadeOrigem === "Fahrenheit") {
+                if (unidadeDestino === "Celsius") {
+                    return (valor - 32) * 5/9 + " °C";
+                } else if (unidadeDestino === "Kelvin") {
+                    return (valor - 32) * 5/9 + 273.15 + " K";
+                }
+            } else if (unidadeOrigem === "Kelvin") {
+                if (unidadeDestino === "Celsius") {
+                    return valor - 273.15 + " °C";
+                } else if (unidadeDestino === "Fahrenheit") {
+                    return (valor - 273.15) * 9/5 + 32 + " °F";
+                }
+            }
+            
+            return "Unidades de origem e destino inválidas";
+        }
+        
+        // FUNÇÃO PARA ATUALIZAR AS UNIDADES DE MEDIDA
+        function atualizarUnidades() {
+            var categoria = document.getElementById("categoria").value;
+            var unidadeOrigemSelect = document.getElementById("unidadeOrigem");
+            var unidadeDestinoSelect = document.getElementById("unidadeDestino");
+
+            // Limpar as opções anteriores
+            unidadeOrigemSelect.innerHTML = "";
+            unidadeDestinoSelect.innerHTML = "";
+
+            // Preencher as opções de acordo com a categoria selecionada
+            if (categoria === "comprimento") {
+                var unidadesComprimento = ["metros", "centimetros", "polegadas"];
+                for (var i = 0; i < unidadesComprimento.length; i++) {
+                    var option = document.createElement("option");
+                    option.text = unidadesComprimento[i];
+                    option.value = unidadesComprimento[i];
+                    unidadeOrigemSelect.appendChild(option);
+                }
+                // Clonar as opções de origem para destino
+                for (var j = 0; j < unidadesComprimento.length; j++) {
+                    var option = document.createElement("option");
+                    option.text = unidadesComprimento[j];
+                    option.value = unidadesComprimento[j];
+                    unidadeDestinoSelect.appendChild(option);
+                }
+            } else if (categoria === "peso") {
+                var unidadesPeso = ["quilogramas", "gramas", "libras"];
+                for (var k = 0; k < unidadesPeso.length; k++) {
+                    var option = document.createElement("option");
+                    option.text = unidadesPeso[k];
+                    option.value = unidadesPeso[k];
+                    unidadeOrigemSelect.appendChild(option);
+                }
+                // Clonar as opções de origem para destino
+                for (var l = 0; l < unidadesPeso.length; l++) {
+                    var option = document.createElement("option");
+                    option.text = unidadesPeso[l];
+                    option.value = unidadesPeso[l];
+                    unidadeDestinoSelect.appendChild(option);
+                }
+            } else if (categoria === "temperatura") {
+                var unidadesTemperatura = ["Celsius", "Fahrenheit", "Kelvin"];
+                for (var m = 0; m < unidadesTemperatura.length; m++) {
+                    var option = document.createElement("option");
+                    option.text = unidadesTemperatura[m];
+                    option.value = unidadesTemperatura[m];
+                    unidadeOrigemSelect.appendChild(option);
+                }
+                // Clonar as opções de origem para destino
+                for (var n = 0; n < unidadesTemperatura.length; n++) {
+                    var option = document.createElement("option");
+                    option.text = unidadesTemperatura[n];
+                    option.value = unidadesTemperatura[n];
+                    unidadeDestinoSelect.appendChild(option);
+                }
+            }
+        }
+        
+        // Chamar a função para preencher as opções de unidade de origem e destino
+        atualizarUnidades();
+    </script>
+</body>
+</html>
