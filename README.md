@@ -1,2 +1,3 @@
 # CONVERSORDEUNIDADE
-CONVERSOR DE UNIDADE
+
+O projeto consiste em uma calculadora de conversão de unidades de medida implementada em HTML e JavaScript. A calculadora possui diferentes categorias de conversão, como comprimento, peso e temperatura, e permite ao usuário converter valores entre diferentes unidades dentro de cada categoria. O código JavaScript foi desenvolvido para atualizar dinamicamente as opções de unidades de origem e destino com base na categoria selecionada pelo usuário. Além disso, a função de conversão de metros para centímetros foi implementada. As escolhas feitas priorizaram a simplicidade e facilidade de uso para o usuário, apresentando opções intuitivas e permitindo a expansão fácil para incluir mais categorias e unidades de medida. O projeto foi entregue com sucesso e está funcionando corretamente.
