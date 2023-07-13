@@ -1,41 +1,94 @@
 <!DOCTYPE html>
 <html>
+
 <head>
     <title>Conversor de Unidades</title>
+    <script src="./JS/script.js"></script>
+    <style src="./CSS/style.css"></style>
+    <style>
+        /* Estilização geral da tabela */
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            background-color: #f2f2f2;
+            border: 1px solid #ccc;
+            margin-bottom: 20px;
+        }
+
+        /* Estilos para as células de cabeçalho */
+        th {
+            background-color: #333;
+            color: #fff;
+            text-align: center;
+            padding: 10px;
+        }
+
+        /* Estilos para as células de dados */
+        td {
+            padding: 8px;
+            text-align: left;
+        }
+
+        /* Estilos para a primeira célula de cada linha */
+        td:first-child {
+            font-weight: bold;
+        }
+
+        /* Estilos para as células de entrada (inputs e selects) */
+        input[type="text"],
+        select {
+            padding: 5px;
+            width: 150px;
+        }
+
+        /* Estilos para o botão */
+        button {
+            padding: 10px;
+            background-color: #333;
+            color: #fff;
+            border: none;
+            cursor: pointer;
+        }
+
+        /* Estilos para o resultado */
+        #resultado {
+            font-weight: bold;
+            margin-top: 10px;
+        }
+    </style>
+    <style>
+        /* Estilo de plano de fundo */
+        body {
+            background-image: url("../img/Dorama imagem de fundo para celular.png");
+            background-repeat: no-repeat;
+            background-size: cover;
+        }
+    </style>
 </head>
+
 <body>
     <h1>Conversor de Unidades</h1>
-    
+
     <label for="categoria">Categoria:</label>
     <select id="categoria" onchange="atualizarUnidades()">
         <option value="comprimento">Comprimento</option>
         <option value="peso">Peso</option>
         <option value="temperatura">Temperatura</option>
     </select>
-    
-    <br>
-    
+
     <label for="valor">Valor:</label>
     <input type="text" id="valor">
-    
-    <br>
-    
+
     <label for="unidadeOrigem">Unidade de Origem:</label>
     <select id="unidadeOrigem"></select>
-    
-    <br>
-    
+
     <label for="unidadeDestino">Unidade de Destino:</label>
     <select id="unidadeDestino"></select>
-    
-    <br>
-    
+
     <button onclick="converterUnidades()">Converter</button>
-    
-    <br>
-    
+
     <p id="resultado"></p>
-    
+
     <script>
         // FUNÇÃO PARA CONVERTER AS UNIDADES
         function converterUnidades() {
@@ -44,7 +97,7 @@
             var unidadeOrigem = document.getElementById("unidadeOrigem").value;
             var unidadeDestino = document.getElementById("unidadeDestino").value;
             var resultado;
-            
+
             // Converter de acordo com a categoria selecionada
             if (categoria === "comprimento") {
                 resultado = converterComprimento(valor, unidadeOrigem, unidadeDestino);
@@ -53,11 +106,11 @@
             } else if (categoria === "temperatura") {
                 resultado = converterTemperatura(valor, unidadeOrigem, unidadeDestino);
             }
-            
+
             // Exibir o resultado
             document.getElementById("resultado").textContent = resultado;
         }
-        
+
         // FUNÇÕES PARA CONVERSÃO DE UNIDADES
         function converterComprimento(valor, unidadeOrigem, unidadeDestino) {
             if (unidadeOrigem === "metros") {
@@ -79,10 +132,10 @@
                     return valor * 2.54 + " cm";
                 }
             }
-            
+
             return "Unidades de origem e destino inválidas";
         }
-        
+
         function converterPeso(valor, unidadeOrigem, unidadeDestino) {
             if (unidadeOrigem === "quilogramas") {
                 if (unidadeDestino === "gramas") {
@@ -103,34 +156,34 @@
                     return valor * 453.592 + " g";
                 }
             }
-            
+
             return "Unidades de origem e destino inválidas";
         }
-        
+
         function converterTemperatura(valor, unidadeOrigem, unidadeDestino) {
             if (unidadeOrigem === "Celsius") {
                 if (unidadeDestino === "Fahrenheit") {
-                    return (valor * 9/5) + 32 + " °F";
+                    return (valor * 9 / 5) + 32 + " °F";
                 } else if (unidadeDestino === "Kelvin") {
                     return valor + 273.15 + " K";
                 }
             } else if (unidadeOrigem === "Fahrenheit") {
                 if (unidadeDestino === "Celsius") {
-                    return (valor - 32) * 5/9 + " °C";
+                    return (valor - 32) * 5 / 9 + " °C";
                 } else if (unidadeDestino === "Kelvin") {
-                    return (valor - 32) * 5/9 + 273.15 + " K";
+                    return (valor - 32) * 5 / 9 + 273.15 + " K";
                 }
             } else if (unidadeOrigem === "Kelvin") {
                 if (unidadeDestino === "Celsius") {
                     return valor - 273.15 + " °C";
                 } else if (unidadeDestino === "Fahrenheit") {
-                    return (valor - 273.15) * 9/5 + 32 + " °F";
+                    return (valor - 273.15) * 9 / 5 + 32 + " °F";
                 }
             }
-            
+
             return "Unidades de origem e destino inválidas";
         }
-        
+
         // FUNÇÃO PARA ATUALIZAR AS UNIDADES DE MEDIDA
         function atualizarUnidades() {
             var categoria = document.getElementById("categoria").value;
@@ -189,9 +242,10 @@
                 }
             }
         }
-        
+
         // Chamar a função para preencher as opções de unidade de origem e destino
         atualizarUnidades();
     </script>
 </body>
+
 </html>
